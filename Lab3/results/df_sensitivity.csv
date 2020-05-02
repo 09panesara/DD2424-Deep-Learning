@@ -1,0 +1,7 @@
+,batch_normalisation,batch_size,eta_max,eta_min,hidden_nodes,initialisation,lamda,n_cycles,n_s,sigmas,test_accuracy,val_accuracy
+0,True,100,0.1,1e-05,"[50, 50]",normal,0.005,2,900.0,0.1,0.5296,0.5392
+4,True,100,0.1,1e-05,"[50, 50]",normal,0.005,2,900.0,0.0001,0.5237,0.5268
+2,True,100,0.1,1e-05,"[50, 50]",normal,0.005,2,900.0,0.001,0.5214,0.5296
+5,False,100,0.1,1e-05,"[50, 50]",normal,0.005,2,900.0,0.0001,0.5171,0.521
+3,False,100,0.1,1e-05,"[50, 50]",normal,0.005,2,900.0,0.001,0.5129,0.515
+1,False,100,0.1,1e-05,"[50, 50]",normal,0.005,2,900.0,0.1,0.5125,0.5182

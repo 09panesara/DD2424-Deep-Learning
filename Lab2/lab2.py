@@ -98,7 +98,6 @@ class TwoLayerClassifer:
         if dropout_thresh is not None:
 #             u1_batch = np.random.binomial(1,1-dropout_thresh,H.shape)
             curr_indices = np.copy(indices)
-            dropout_thresh = 0.2
             number_to_zero = H.shape[0]*dropout_thresh
             curr_indices[-int(number_to_zero):] = 0
             u1_batch = np.asarray([np.random.permutation(curr_indices) for i in range(H.shape[1])]).T

@@ -1,6 +1,8 @@
 from sklearn import preprocessing
 import pickle
 import matplotlib.pyplot as plt
+import numpy as np 
+
 
 class CIFAR10Data():
     def __init__(self, dataset_dir):
@@ -38,41 +40,40 @@ class CIFAR10Data():
         Y = np.hstack([batch[1] for batch in batches])
         return X, Y
 
-
-def montage(W):
-    """ Display the image for each label in W """
-    fig, ax = plt.subplots(2,5)
-    labels = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-    for i in range(2):
-        for j in range(5):
-            im  = W[5*i+j,:].reshape(32,32,3, order='F')
-            sim = (im-np.min(im[:]))/(np.max(im[:])-np.min(im[:]))
-            sim = sim.transpose(1,0,2)
-            ax[i][j].imshow(sim, interpolation='nearest')
-            ax[i][j].set_title(labels[5*i+j])
-            ax[i][j].axis('off')
-    plt.show()
     
 
 # plot cost function and accuracy
-def plot_costs_accuracies(accuracies, costs, epoch_jump=1):
-    plt.subplot(1,2,1)
-    epochs = np.arange(0,len(costs['train']))*epoch_jump
-    plt.plot(epochs, costs['train'], 'g-', label='Train')
-    plt.plot(epochs, costs['val'], 'r-', label='Validation')
+def plot_costs_accuracies(accuracies, losses, costs, update_steps):
+    fig, ax = plt.subplots(1, 3, figsize=(20,4))
+    plt.subplot(1,3,1)
+    plt.plot(update_steps, losses['train'], 'g-', label='Train')
+    if 'val' in losses:
+        plt.plot(update_steps, losses['val'], 'r-', label='Validation')
+    plt.title('Loss')
+    plt.xlabel('Update step')
+    plt.ylabel('Loss')
+    plt.legend()
+    plt.grid('on')
+
+    # cost is loss + regularisation
+    plt.subplot(1,3,2)
+    plt.plot(update_steps, costs['train'], 'g-', label='Train')
+    if 'val' in costs:
+        plt.plot(update_steps, costs['val'], 'r-', label='Validation')
     plt.title('Cost function')
-    plt.xlabel('Epoch')
+    plt.xlabel('Update step')
     plt.ylabel('Cost')
     plt.legend()
     plt.grid('on')
 
-    plt.subplot(1,2,2)
-    plt.plot(epochs, accuracies['train'], 'g-', label='Train')
-    plt.plot(epochs, accuracies['val'], 'r-', label='Validation')
+    plt.subplot(1,3,3)
+    plt.plot(update_steps, accuracies['train'], 'g-', label='Train')
+    if 'val' in accuracies:
+        plt.plot(update_steps, accuracies['val'], 'r-', label='Validation')
     plt.title('Accuracy')
-    plt.xlabel('Epoch')
+    plt.xlabel('Update step')
     plt.ylabel('Accuracy')
     plt.legend()
     plt.grid('on')
-    
+
     plt.show()

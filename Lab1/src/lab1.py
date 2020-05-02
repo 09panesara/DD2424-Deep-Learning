@@ -9,7 +9,7 @@ import pickle
 class CIFAR10Data():
     def __init__(self):
         self.batches = {}
-        self.dataset_dir = '../datasets/cifar-10-batches-py/'
+        self.dataset_dir = '../../datasets/cifar-10-batches-py/'
         self.label_1hot_encoder = preprocessing.LabelBinarizer()
         self.label_1hot_encoder.fit([x for x in range(10)])
         
